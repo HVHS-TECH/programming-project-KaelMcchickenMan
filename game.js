@@ -10,21 +10,32 @@
 function setup() {
 	console.log("setup: ");
 cnv = new Canvas(500, 750);
-
+wallGroup = new Group();
 
 
 startButton = new Sprite (250, 500, 250, 50);
 startButton.color = 'rgb(131, 79, 255)'
 startGame();
 function startGame() {
-
 startButton.remove();
+
 player = new Sprite(250, 375, 25);
-player.color = 'rgb(131, 79, 255)';
-player.stroke = 'rgb(39, 10, 58)';
+player.color = 'rgb(255, 79, 79)';
+player.stroke = 'rgb(133, 28, 42)';
 
 player.vel.x = 0;
 player.vel.y = 0;
+
+lava = new Sprite(250, 725, 500, 100, 'n');
+lava.color = 'rgb(255, 135, 79)'
+lava.stroke = 'rgb(255, 0, 0)';
+for (let i = 0; i < 15; i++) {
+
+wall = new Sprite(250, 0, 100, 20);
+wall.color = 'rgb(116, 100, 86)';
+wall.vel.y = 1;
+wallGroup.add(wall);
+}
 
 }
 }
@@ -34,7 +45,7 @@ player.vel.y = 0;
 function draw() {
 
 console.log("draw:");
-	 background('rgb(104, 63, 151)');
+	 background('rgb(153, 0, 0)');
 startGame();
 
 
@@ -53,15 +64,7 @@ player.rotationSpeed = player.rotationSpeed / 1.05;
 	player.vel.x = 3;
 	player.rotationSpeed = 5;
 	} 
-    	if (kb.pressing ('down')) {
 
-		player.vel.y = 3;
-
-	} 
-	if (kb.pressing ('up')) {
-	player.vel.y = -3;
-
-	} 
     }
  
 
