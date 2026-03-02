@@ -31,7 +31,7 @@ lava.color = 'rgb(255, 135, 79)'
 lava.stroke = 'rgb(255, 0, 0)';
 for (let i = 0; i < 15; i++) {
 
-wall = new Sprite(250, 0, 100, 20);
+wall = new Sprite(250, 0, 100, 20, 'k');
 wall.color = 'rgb(116, 100, 86)';
 wall.vel.y = 1;
 wallGroup.add(wall);
