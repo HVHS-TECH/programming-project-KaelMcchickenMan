@@ -7,10 +7,12 @@ function lavaDeath() {
 	wallGroup.remove();
 	text("YOU DIED", 250, 350);
 }
+let score = 0;
 let wallGroupVelocity = 1;
 let inMenu = 1;
 let screen = 1;
 let lavaUpAndDown = 1;
+let coinRandomX = 1;
 let backgroundLavaUpAndDown = 1;
 speedingUpWalls();
 
@@ -43,7 +45,7 @@ function startGame() {
 		backgroundLava = new Sprite(250, 725, 500, 100, 'n');
 		backgroundLava.color = 'rgb(158, 53, 5)'
 		backgroundLava.stroke = 'rgb(175, 0, 0)';
-	
+
 
 
 		player = new Sprite(250, 375, 25);
@@ -53,7 +55,7 @@ function startGame() {
 		player.vel.x = 0;
 		player.vel.y = 0;
 
-	lava = new Sprite(250, 725, 500, 100, 'n');
+		lava = new Sprite(250, 725, 500, 100, 'n');
 		lava.color = 'rgb(255, 135, 79)'
 		lava.stroke = 'rgb(255, 0, 0)';
 
@@ -64,6 +66,10 @@ function startGame() {
 		//wall.vel.y = 1;
 		//wallGroup.add(wall);
 		//}
+
+
+
+
 
 		function leftBlockage() {
 			console.log("leftBlockage");
@@ -234,7 +240,7 @@ function startGame() {
 			await sleep(11000);
 			wallGroupVelocity = 4
 			waveLargeFast();
-			await sleep(10000);
+			await sleep(18000);
 			leftBlockage();
 			await sleep(1);
 			leftBlockage();
@@ -244,7 +250,7 @@ function startGame() {
 			leftBlockage();
 			await sleep(1);
 			leftBlockage();
-			await sleep(6500);
+			await sleep(5000);
 			wallGroupVelocity = wallGroupVelocity * 0.75
 			rightBlockage();
 			await sleep(1);
@@ -332,7 +338,9 @@ function draw() {
 	text("Mouse X = " + round(mouse.x), 5, 15);
 	text("Mouse Y = " + round(mouse.y), 5, 35);
 	text("WallVelocity = " + (wallGroupVelocity), 5, 55);
+	text("Score = " + (score), 5, 75);
 
+	coinRandomX = Math.random() * (490 - 10) + 10;
 
 
 
