@@ -14,6 +14,7 @@ let screen = 1;
 let lavaUpAndDown = 1;
 let coinRandomX = 1;
 let backgroundLavaUpAndDown = 1;
+let coinSideToSide = 1;
 speedingUpWalls();
 
 //SETUP
@@ -21,7 +22,7 @@ function setup() {
 	console.log("setup: ");
 	cnv = new Canvas(500, 750);
 	wallGroup = new Group();
-
+	coinGroup = new Group();
 
 
 
@@ -33,6 +34,7 @@ function setup() {
 
 
 function startGame() {
+	
 	if (screen == 1) {
 		startButton = new Sprite(250, 500, 250, 50);
 		startButton.color = 'rgb(131, 79, 255)'
@@ -59,19 +61,21 @@ function startGame() {
 		lava.color = 'rgb(255, 135, 79)'
 		lava.stroke = 'rgb(255, 0, 0)';
 
-		//for (let i = 0; i < 15; i++) {
-
-		//wall = new Sprite(250, 0, 100, 20, 'k');
-		//wall.color = 'rgb(116, 100, 86)';
-		//wall.vel.y = 1;
-		//wallGroup.add(wall);
-		//}
 
 
 
 
 
-		function leftBlockage() {
+	}
+
+
+
+
+
+
+
+	function leftBlockage() {
+		if (screen == 2) {
 			console.log("leftBlockage");
 			wall = new Sprite(125, 0, 250, 20, 'k');
 			wall.color = 'rgb(116, 100, 86)';
@@ -79,8 +83,10 @@ function startGame() {
 			wallGroup.add(wall);
 			wallGroupVelocity = wallGroupVelocity + wallGroupVelocity * 0.2
 		}
+	}
 
-		function rightBlockage() {
+	function rightBlockage() {
+		if (screen == 2) {
 			console.log("rightBlockage");
 			wall = new Sprite(375, 0, 250, 20, 'k');
 			wall.color = 'rgb(116, 100, 86)';
@@ -88,8 +94,10 @@ function startGame() {
 			wallGroup.add(wall);
 			wallGroupVelocity = wallGroupVelocity + wallGroupVelocity * 0.2
 		}
+	}
 
-		function rightChunk() {
+	function rightChunk() {
+		if (screen == 2) {
 			console.log("rightChunk");
 			wall = new Sprite(375, 0, 150, 20, 'k');
 			wall.color = 'rgb(116, 100, 86)';
@@ -104,8 +112,12 @@ function startGame() {
 			wall.vel.y = wallGroupVelocity;
 			wallGroup.add(wall);
 		}
+	}
 
-		async function waveLarge() {
+
+
+	async function waveLarge() {
+		if (screen == 2) {
 			console.log("waveLarge");
 			leftSideWave();
 			await sleep(6000);
@@ -121,7 +133,9 @@ function startGame() {
 			await sleep(5000);
 			wallGroupVelocity = wallGroupVelocity + wallGroupVelocity * 0.5
 		}
-		async function waveLargeFast() {
+	}
+	async function waveLargeFast() {
+		if (screen == 2) {
 			console.log("waveLarge");
 			leftSideWave();
 			await sleep(3000);
@@ -137,9 +151,11 @@ function startGame() {
 			await sleep(2600);
 			wallGroupVelocity = wallGroupVelocity + wallGroupVelocity * 0.5
 		}
+	}
 
 
-		function rightSideWave() {
+	function rightSideWave() {
+		if (screen == 2) {
 			wall = new Sprite(200, -75, 20, 200, 'k');
 			wall.color = 'rgb(116, 100, 86)';
 			wall.vel.y = wallGroupVelocity;
@@ -153,8 +169,10 @@ function startGame() {
 			wall.vel.y = wallGroupVelocity;
 			wallGroup.add(wall);
 		}
+	}
 
-		function leftSideWave() {
+	function leftSideWave() {
+		if (screen == 2) {
 			wall = new Sprite(300, -75, 20, 200, 'k');
 			wall.color = 'rgb(116, 100, 86)';
 			wall.vel.y = wallGroupVelocity;
@@ -168,152 +186,50 @@ function startGame() {
 			wall.vel.y = wallGroupVelocity;
 			wallGroup.add(wall);
 		}
-
-		wallSpawning();
-		//gameplay spawning
-		async function wallSpawning() {
-			leftBlockage();
-			await sleep(5000);
-			rightBlockage();
-			await sleep(4000);
-			rightChunk();
-			await sleep(7000);
-			leftBlockage();
-			await sleep(3000);
-			rightBlockage();
-			await sleep(2000);
-			leftBlockage();
-			await sleep(1);
-			rightBlockage();
-			await sleep(500);
-			wallGroupVelocity = 1
-			waveLarge();
-			await sleep(37000);
-			leftBlockage();
-			await sleep(1);
-			rightBlockage();
-			await sleep(4000);
-			rightBlockage();
-			await sleep(1);
-			leftBlockage();
-			await sleep(4000);
-			wallGroupVelocity = 2
-			rightChunk();
-			await sleep(5000);
-			wallGroupVelocity = 3
-			waveLargeFast();
-			await sleep(18000);
-			wallGroupVelocity = 0.5
-			rightBlockage();
-			await sleep(1);
-			wallGroupVelocity = 2
-			leftBlockage();
-			await sleep(1000);
-			wallGroupVelocity = 2
-			rightBlockage();
-			await sleep(1);
-			wallGroupVelocity = 3
-			leftBlockage();
-			await sleep(1000);
-			wallGroupVelocity = 2
-			rightBlockage();
-			await sleep(1);
-			wallGroupVelocity = 5
-			leftBlockage();
-			await sleep(1000);
-			rightBlockage();
-			await sleep(1);
-			wallGroupVelocity = 2
-			leftBlockage();
-			await sleep(1000);
-			wallGroupVelocity = 2
-			rightBlockage();
-			await sleep(1);
-			wallGroupVelocity = 3
-			leftBlockage();
-			await sleep(1000);
-			wallGroupVelocity = 2
-			rightBlockage();
-			await sleep(1);
-			wallGroupVelocity = 5
-			leftBlockage();
-			await sleep(11000);
-			wallGroupVelocity = 4
-			waveLargeFast();
-			await sleep(18000);
-			leftBlockage();
-			await sleep(1);
-			leftBlockage();
-			await sleep(1);
-			leftBlockage();
-			await sleep(1);
-			leftBlockage();
-			await sleep(1);
-			leftBlockage();
-			await sleep(5000);
-			wallGroupVelocity = wallGroupVelocity * 0.75
-			rightBlockage();
-			await sleep(1);
-			rightBlockage();
-			await sleep(1);
-			rightBlockage();
-			await sleep(1);
-			rightBlockage();
-			await sleep(1);
-			rightBlockage();
-			await sleep(6000);
-			wallGroupVelocity = 6
-			leftBlockage();
-			await sleep(1);
-			leftBlockage();
-			await sleep(1);
-			leftBlockage();
-			await sleep(1);
-			leftBlockage();
-			await sleep(1);
-			leftBlockage();
-			await sleep(2000);
-			wallGroupVelocity = wallGroupVelocity * 0.5
-			rightBlockage();
-			await sleep(1);
-			rightBlockage();
-			await sleep(1);
-			rightBlockage();
-			await sleep(1);
-			rightBlockage();
-			await sleep(1);
-			rightBlockage();
-			await sleep(2000);
-			wallGroupVelocity = 8
-			leftBlockage();
-			await sleep(1);
-			leftBlockage();
-			await sleep(1);
-			leftBlockage();
-			await sleep(1);
-			leftBlockage();
-			await sleep(1);
-			leftBlockage();
-			await sleep(1);
-			wallGroupVelocity = 2
-			rightBlockage();
-			await sleep(1);
-			rightBlockage();
-			await sleep(1);
-			rightBlockage();
-			await sleep(1);
-			rightBlockage();
-			await sleep(1);
-			rightBlockage();
-			await sleep(5000);
-
-
-
-		}
-
-
 	}
 
+
+	wallSpawning();
+
+
+
+	//gameplay spawning
+	async function wallSpawning() {
+		console.log('spawning gameplay');
+		leftBlockage();
+		
+		rightChunk();
+		
+		rightBlockage();
+	}
+}
+
+
+
+function spawnCoin() {
+	coin = new Sprite(coinRandomX, 0, 15, 'n');
+	coin.color = 'rgb(255, 189, 91)';
+	coin.stroke = 'rgb(255, 151, 14)';
+	coin.vel.y = 1.75;
+	coinGroup.add(coin);
+	coin.overlaps(player, func2Call);
+}
+
+function func2Call(_ssss, _player) {
+	console.log('get coin');
+	_ssss.remove();
+	score = score + 1;
+}
+
+
+
+
+async function coinSpawning() {
+	console.log('spawning coins');
+	for (let i = 0; i < 50; i++) {
+		spawnCoin();
+		await sleep(2000); // Wait for 1 second before the next iteration
+	}
 }
 
 /*******************************************************/
@@ -321,6 +237,7 @@ function startGame() {
 function draw() {
 
 	console.log("draw:");
+	//console.log(frameCount);
 	background('rgb(153, 0, 0)');
 
 
@@ -328,10 +245,11 @@ function draw() {
 	if (kb.pressing('space') && inMenu == 1) {
 		inMenu = 0;
 		screen = 2;
+
 		console.log('game started');
 		console.log(inMenu);
 		startGame();
-
+		coinSpawning();
 	}
 
 
@@ -368,15 +286,27 @@ function draw() {
 		}
 
 		lavaUpAndDown = lavaUpAndDown + 0.02
+		coinSideToSide = coinSideToSide + 0.02
 		backgroundLavaUpAndDown = backgroundLavaUpAndDown + 0.05
 		lava.y = 720 + 50 * Math.cos(lavaUpAndDown) * 0.3
 		backgroundLava.y = 650 + 50 * Math.cos(backgroundLavaUpAndDown) * 0.2
+		coin.x = coin.x + 0 * Math.cos(coinSideToSide) * 0.2
+		if (coin.pos.y >= 600) {
+			coin.remove()
+		}
 
 	} else if (screen == 3) {
 		console.log("dead");
 		textSize(50);
 		text("YOU DIED", 50, 350);
 	}
+
+	if (screen == 2 && player.collided(coinGroup)) {
+		score = score + 1
+	}
+
+
+
 }
 
 
