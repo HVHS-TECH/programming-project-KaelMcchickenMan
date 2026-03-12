@@ -1,4 +1,5 @@
 
+
 /*******************************************************/
 
 // GLOBAL 
@@ -60,129 +61,123 @@ function startGame() {
 	}
 
 	// LEVEL GAMEPLAY SPAWNS
-	function leftBlockage() {
-		if (screen == 2) {
-			console.log("leftBlockage");
-			wall = new Sprite(125, 0, 250, 20, 'k');
-			wall.color = 'rgb(116, 100, 86)';
-			wall.vel.y = wallGroupVelocity;
-			wallGroup.add(wall);
-			wallGroupVelocity = wallGroupVelocity + wallGroupVelocity * 0.2
-		}
-	}
 
-	function rightBlockage() {
-		if (screen == 2) {
-			console.log("rightBlockage");
-			wall = new Sprite(375, 0, 250, 20, 'k');
-			wall.color = 'rgb(116, 100, 86)';
-			wall.vel.y = wallGroupVelocity;
-			wallGroup.add(wall);
-			wallGroupVelocity = wallGroupVelocity + wallGroupVelocity * 0.2
-		}
-	}
-
-	function rightChunk() {
-		if (screen == 2) {
-			console.log("rightChunk");
-			wall = new Sprite(375, 0, 150, 20, 'k');
-			wall.color = 'rgb(116, 100, 86)';
-			wall.vel.y = wallGroupVelocity;
-			wallGroup.add(wall);
-			wall = new Sprite(300, 25, 20, 200, 'k');
-			wall.color = 'rgb(116, 100, 86)';
-			wall.vel.y = wallGroupVelocity;
-			wallGroup.add(wall);
-			wall = new Sprite(76, -75, 468, 20, 'k');
-			wall.color = 'rgb(116, 100, 86)';
-			wall.vel.y = wallGroupVelocity;
-			wallGroup.add(wall);
-		}
-	}
-
-	async function waveLarge() {
-		if (screen == 2) {
-			console.log("waveLarge");
-			leftSideWave();
-			await sleep(6000);
-			rightSideWave();
-			await sleep(6000);
-			leftSideWave();
-			await sleep(5500);
-			rightSideWave();
-			await sleep(5500);
-			leftSideWave();
-			await sleep(5300);
-			rightSideWave();
-			await sleep(5000);
-			wallGroupVelocity = wallGroupVelocity + wallGroupVelocity * 0.5
-		}
-	}
-	async function waveLargeFast() {
-		if (screen == 2) {
-			console.log("waveLarge");
-			leftSideWave();
-			await sleep(3000);
-			rightSideWave();
-			await sleep(3000);
-			leftSideWave();
-			await sleep(2900);
-			rightSideWave();
-			await sleep(2900);
-			leftSideWave();
-			await sleep(2600);
-			rightSideWave();
-			await sleep(2600);
-			wallGroupVelocity = wallGroupVelocity + wallGroupVelocity * 0.5
-		}
-	}
-
-	function rightSideWave() {
-		if (screen == 2) {
-			wall = new Sprite(200, -75, 20, 200, 'k');
-			wall.color = 'rgb(116, 100, 86)';
-			wall.vel.y = wallGroupVelocity;
-			wallGroup.add(wall);
-			wall = new Sprite(424, -175, 468, 20, 'k');
-			wall.color = 'rgb(116, 100, 86)';
-			wall.vel.y = wallGroupVelocity;
-			wallGroup.add(wall);
-			wall = new Sprite(424, 25, 468, 20, 'k');
-			wall.color = 'rgb(116, 100, 86)';
-			wall.vel.y = wallGroupVelocity;
-			wallGroup.add(wall);
-		}
-	}
-
-	function leftSideWave() {
-		if (screen == 2) {
-			wall = new Sprite(300, -75, 20, 200, 'k');
-			wall.color = 'rgb(116, 100, 86)';
-			wall.vel.y = wallGroupVelocity;
-			wallGroup.add(wall);
-			wall = new Sprite(76, -175, 468, 20, 'k');
-			wall.color = 'rgb(116, 100, 86)';
-			wall.vel.y = wallGroupVelocity;
-			wallGroup.add(wall);
-			wall = new Sprite(76, 25, 468, 20, 'k');
-			wall.color = 'rgb(116, 100, 86)';
-			wall.vel.y = wallGroupVelocity;
-			wallGroup.add(wall);
-		}
-	}
 
 	//spawning the gameplay
-	wallSpawning();
-	async function wallSpawning() {
-		console.log('spawning gameplay');
-		leftBlockage();
 
-		rightChunk();
 
-		rightBlockage();
+}
+
+function leftBlockage() {
+	if (screen == 2) {
+		console.log("leftBlockage");
+		wall = new Sprite(125, 0, 250, 20, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+		wallGroupVelocity = wallGroupVelocity + wallGroupVelocity * 0.2
 	}
 }
 
+function rightBlockage() {
+	if (screen == 2) {
+		console.log("rightBlockage");
+		wall = new Sprite(375, 0, 250, 20, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+		wallGroupVelocity = wallGroupVelocity + wallGroupVelocity * 0.2
+	}
+}
+
+function rightChunk() {
+	if (screen == 2) {
+		console.log("rightChunk");
+		wall = new Sprite(375, 0, 150, 20, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+		wall = new Sprite(300, 25, 20, 200, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+		wall = new Sprite(76, -75, 468, 20, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+	}
+}
+
+async function waveLarge() {
+	if (screen == 2) {
+		console.log("waveLarge");
+		leftSideWave();
+		await sleep(6000);
+		rightSideWave();
+		await sleep(6000);
+		leftSideWave();
+		await sleep(5500);
+		rightSideWave();
+		await sleep(5500);
+		leftSideWave();
+		await sleep(5300);
+		rightSideWave();
+		await sleep(5000);
+		wallGroupVelocity = wallGroupVelocity + wallGroupVelocity * 0.5
+	}
+}
+async function waveLargeFast() {
+	if (screen == 2) {
+		console.log("waveLarge");
+		leftSideWave();
+		await sleep(3000);
+		rightSideWave();
+		await sleep(3000);
+		leftSideWave();
+		await sleep(2900);
+		rightSideWave();
+		await sleep(2900);
+		leftSideWave();
+		await sleep(2600);
+		rightSideWave();
+		await sleep(2600);
+		wallGroupVelocity = wallGroupVelocity + wallGroupVelocity * 0.5
+	}
+}
+
+function rightSideWave() {
+	if (screen == 2) {
+		wall = new Sprite(200, -75, 20, 200, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+		wall = new Sprite(424, -175, 468, 20, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+		wall = new Sprite(424, 25, 468, 20, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+	}
+}
+
+function leftSideWave() {
+	if (screen == 2) {
+		wall = new Sprite(300, -75, 20, 200, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+		wall = new Sprite(76, -175, 468, 20, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+		wall = new Sprite(76, 25, 468, 20, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+	}
+}
 // the function to spawn a coin
 function spawnCoin() {
 	coin = new Sprite(coinRandomX, 0, 15, 'n');
@@ -211,7 +206,7 @@ async function coinSpawning() {
 
 /*******************************************************/
 function draw() {
-	console.log("draw:");
+	//console.log("draw:");
 	//console.log(frameCount);
 	background('rgb(153, 0, 0)');
 
@@ -223,6 +218,10 @@ function draw() {
 		console.log('game started');
 		console.log(inMenu);
 		startGame();
+
+	}
+
+	if (frameCount == 50) {
 		coinSpawning();
 	}
 	// text (debug stuff)
@@ -230,12 +229,35 @@ function draw() {
 	text("Mouse Y = " + round(mouse.y), 5, 35);
 	text("WallVelocity = " + (wallGroupVelocity), 5, 55);
 	text("Score = " + (score), 5, 75);
+	text("Frame = " + (frameCount), 5, 95);
 
 	// the variable to randomize the coins positions when spawning
 	coinRandomX = Math.random() * (490 - 10) + 10;
 
-	// line 249 does nothing but sets up for like 252
+
+	if (screen == 2) {
+		//spawning the gameplay using frame counting
+		if (frameCount == 100) {
+			leftBlockage();	
+		} else if (frameCount == 300) {
+			rightBlockage(); 
+		} else if (frameCount == 500) {
+			leftBlockage();
+		} else if (frameCount == 750) {
+			rightChunk();
+		} else if (frameCount == 1000) {
+			rightBlockage();
+		} else if (frameCount == 1250) {
+			leftSideWave();
+		} else if (frameCount == 1500) {
+			rightSideWave();
+		}
+	}
+
+	// next line does nothing but sets up for like 242F
 	if (screen == 1) {
+
+		frameCount = 0
 
 		// once screen has changed to the gameplay screen start doing the gameplay stuff
 	} else if (screen == 2) {
@@ -265,13 +287,14 @@ function draw() {
 		backgroundLavaUpAndDown = backgroundLavaUpAndDown + 0.05
 		lava.y = 720 + 50 * Math.cos(lavaUpAndDown) * 0.3
 		backgroundLava.y = 650 + 50 * Math.cos(backgroundLavaUpAndDown) * 0.2
-		coin.x = coin.x + 0 * Math.cos(coinSideToSide) * 0.2
+
 
 		// despawn coins
-		if (coin.pos.y >= 600) {
-			coin.remove()
+		if (frameCount > 75) {
+			if (coin.pos.y >= 400) {
+				coin.remove()
+			}
 		}
-
 		// you screen will turn to screen 3 if you die and this will happen
 	} else if (screen == 3) {
 		console.log("dead");
@@ -283,15 +306,6 @@ function draw() {
 	if (screen == 2 && player.collided(coinGroup)) {
 		score = score + 1
 	}
-
-
-
 }
-
-
-
-
-
-
 
 /*******************************************************/
