@@ -256,7 +256,8 @@ function draw() {
 
 	// next line does nothing but sets up for like 242F
 	if (screen == 1) {
-
+		text("Don't Burn", 200, 250);
+		text('Controls: Left/Right Arrow Keys', 200, 350);
 		frameCount = 0
 
 		// once screen has changed to the gameplay screen start doing the gameplay stuff
