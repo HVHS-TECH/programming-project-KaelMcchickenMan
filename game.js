@@ -59,7 +59,12 @@ function startGame() {
 		lava.stroke = 'rgb(255, 0, 0)';
 	}
 
-	// LEVEL GAMEPLAY SPAWNS
+	
+	//spawning the gameplay
+
+
+}
+// LEVEL GAMEPLAY SPAWNS
 	function leftBlockage() {
 		if (screen == 2) {
 			console.log("leftBlockage");
@@ -171,16 +176,17 @@ function startGame() {
 		}
 	}
 
-	//spawning the gameplay
-	wallSpawning();
-	async function wallSpawning() {
-		console.log('spawning gameplay');
+async function wallSpawning() {
+	if (frameCount == 100) {
+		console.log('spawning leftBlockage');
 		leftBlockage();
-
-		rightChunk();
-
+	} else if (frameCount == 300) {
+		console.log('spawning rightBlockage');
 		rightBlockage();
+	} else if (frameCount == 600) {
+		rightChunk();
 	}
+
 }
 
 // the function to spawn a coin
@@ -205,7 +211,7 @@ async function coinSpawning() {
 	console.log('spawning coins');
 	for (let i = 0; i < 50; i++) {
 		spawnCoin();
-		await sleep(2000); // Wait for 1 second before the next coin
+		await sleep(2000); // Wait for 2 seconds before the next coin
 	}
 }
 
@@ -214,7 +220,7 @@ function draw() {
 	console.log("draw:");
 	//console.log(frameCount);
 	background('rgb(153, 0, 0)');
-
+	wallSpawning();
 	// starting on the menu 
 	if (kb.pressing('space') && inMenu == 1) {
 		// will change the screen going off the menu into the main game
@@ -230,13 +236,17 @@ function draw() {
 	text("Mouse Y = " + round(mouse.y), 5, 35);
 	text("WallVelocity = " + (wallGroupVelocity), 5, 55);
 	text("Score = " + (score), 5, 75);
+	text("Frame = " + (frameCount), 5, 95);
 
 	// the variable to randomize the coins positions when spawning
 	coinRandomX = Math.random() * (490 - 10) + 10;
 
 	// line 249 does nothing but sets up for like 252
 	if (screen == 1) {
+		frameCount = 0;
+		text("Don't Burn!", 225, 350);
 
+	text("Arrow Keys to move, get the best score you can.", 150, 700);
 		// once screen has changed to the gameplay screen start doing the gameplay stuff
 	} else if (screen == 2) {
 
@@ -283,15 +293,5 @@ function draw() {
 	if (screen == 2 && player.collided(coinGroup)) {
 		score = score + 1
 	}
-
-
-
 }
-
-
-
-
-
-
-
 /*******************************************************/
