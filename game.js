@@ -62,21 +62,7 @@ function startGame() {
 
 
 }
-async function wallSpawning() {
-	if (frameCount == 100) {
-		console.log('spawning leftBlockage');
-		leftBlockage();
-	} else if (frameCount == 300) {
-		console.log('spawning rightBlockage');
-		rightBlockage();
-	} else if (frameCount == 600) {
-		rightChunk();
 
-	//spawning the gameplay
-
-
-}
-}
 
 function leftBlockage() {
 	if (screen == 2) {
@@ -221,7 +207,7 @@ function draw() {
 	//console.log("draw:");
 	//console.log(frameCount);
 	background('rgb(153, 0, 0)');
-	wallSpawning();
+
 	// starting on the menu 
 	if (kb.pressing('space') && inMenu == 1) {
 		// will change the screen going off the menu into the main game
@@ -250,9 +236,9 @@ function draw() {
 	if (screen == 2) {
 		//spawning the gameplay using frame counting
 		if (frameCount == 100) {
-			leftBlockage();	
+			leftBlockage();
 		} else if (frameCount == 300) {
-			rightBlockage(); 
+			rightBlockage();
 		} else if (frameCount == 500) {
 			leftBlockage();
 		} else if (frameCount == 750) {
@@ -263,6 +249,13 @@ function draw() {
 			leftSideWave();
 		} else if (frameCount == 1500) {
 			rightSideWave();
+		} else if (frameCount == 1750) {
+			leftBlockage();
+		} else if (frameCount == 1755) {
+			rightBlockage();
+		} else if (frameCount == 1900) {
+			frameCount = 0;
+			wallGroupVelocity = wallGroupVelocity / 2;
 		}
 	}
 
