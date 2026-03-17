@@ -17,7 +17,7 @@ let lavaUpAndDown = 1;
 let coinRandomX = 1;
 let backgroundLavaUpAndDown = 1;
 let coinSideToSide = 1;
-
+let backgroundState = 1;
 //SETUP
 function setup() {
 	console.log("setup: ");
@@ -176,6 +176,55 @@ function leftSideWave() {
 		wallGroup.add(wall);
 	}
 }
+
+function largeSector1() {
+	if (screen == 2) {
+		wall = new Sprite(300, -25, 20, 100, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+		wall = new Sprite(400, -175, 468, 20, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+		wall = new Sprite(76, 25, 468, 20, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+		wall = new Sprite(21, -270, 300, 20, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+		wall = new Sprite(350, -500, 100, 20, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+		wall = new Sprite(400, -600, 200, 20, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+		wall = new Sprite(210, -330, 170, 20, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+		wall = new Sprite(100, -453, 250, 114, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+		wall = new Sprite(400, -410, 20, 200, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+		wall = new Sprite(300, -410, 20, 200, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+		wall = new Sprite(490, -398, 20, 427, 'k');
+		wall.color = 'rgb(116, 100, 86)';
+		wall.vel.y = wallGroupVelocity;
+		wallGroup.add(wall);
+	}
+}
 // the function to spawn a coin
 function spawnCoin() {
 	coin = new Sprite(coinRandomX, 0, 15, 'n');
@@ -206,7 +255,23 @@ async function coinSpawning() {
 function draw() {
 	//console.log("draw:");
 	//console.log(frameCount);
-	background('rgb(153, 0, 0)');
+	if (backgroundState == 1) {
+		background('rgb(153, 0, 0)');
+	} else if (backgroundState == 2) {
+		background('rgb(158, 40, 60)');
+	} else if (backgroundState == 3) {
+		background('rgb(158, 40, 113)');
+	} else if (backgroundState == 4) {
+		background('rgb(158, 40, 133)');
+	} else if (backgroundState == 5) {
+		background('rgb(121, 40, 158)');
+	} else if (backgroundState == 6) {
+		background('rgb(95, 40, 158)');
+	} else if (backgroundState == 7) {
+		background('rgb(48, 40, 158)');
+	} else if (backgroundState == 8) {
+		background('rgb(40, 68, 158)');
+	}
 
 	// starting on the menu 
 	if (kb.pressing('space') && inMenu == 1) {
@@ -234,8 +299,10 @@ function draw() {
 
 
 	if (screen == 2) {
+
 		//spawning the gameplay using frame counting
 		if (frameCount == 100) {
+			backgroundState = 1
 			leftBlockage();
 		} else if (frameCount == 300) {
 			rightBlockage();
@@ -253,12 +320,33 @@ function draw() {
 			leftBlockage();
 		} else if (frameCount == 1755) {
 			rightBlockage();
-		} else if (frameCount == 1900) {
-			frameCount = 0;
-			wallGroupVelocity = wallGroupVelocity / 2;
+		} else if (frameCount == 1850) {
+			wallGroupVelocity = 1
+			largeSector1();
+		} else if (frameCount == 2850) {
+			wallGroupVelocity = 3
+			leftBlockage();
+		} else if (frameCount == 2870) {
+			wallGroupVelocity = 5
+			rightBlockage();
+		} else if (frameCount == 3000) {
+			backgroundState = 2
+		} else if (frameCount == 3010) {
+			backgroundState = 3
+		} else if (frameCount == 3020) {
+			backgroundState = 4
+		} else if (frameCount == 3030) {
+			backgroundState = 5
+		} else if (frameCount == 3040) {
+			backgroundState = 6
+		} else if (frameCount == 3050) {
+			backgroundState = 7
+		} else if (frameCount == 3060) {
+			backgroundState = 8
 		}
 	}
-
+	//frameCount = 0;
+	//	wallGroupVelocity = wallGroupVelocity / 2;
 	// next line does nothing but sets up for like 242F
 	if (screen == 1) {
 
@@ -270,11 +358,17 @@ function draw() {
 	} else if (screen == 2) {
 
 		// smooth velocity stuff
+		if (backgroundState == 1) {
 		player.vel.x = player.vel.x / 1.05;
 		player.vel.y = player.vel.y / 1.05;
+		} else if (backgroundState == 8) {
+		player.vel.x = player.vel.x / 1.01;
+		player.vel.y = player.vel.y / 1.01;
+		}
 		player.rotationSpeed = player.rotationSpeed / 1.05;
 
 		// player movement
+		if (backgroundState == 1 || backgroundState == 2 || backgroundState == 3 || backgroundState == 4 || backgroundState == 5 || backgroundState == 6 || backgroundState == 7 || backgroundState == 8 ) {
 		if (kb.pressing('left')) {
 			player.vel.x = -3;
 			player.rotationSpeed = -5;
@@ -283,6 +377,16 @@ function draw() {
 			player.vel.x = 3;
 			player.rotationSpeed = 5;
 		}
+	} else if (backgroundState == 8) {
+		if (kb.pressing('left')) {
+			player.vel.x = player.vel.x + -0.05;
+			player.rotationSpeed = -5;
+		}
+		if (kb.pressing('right')) {
+			player.vel.x = player.vel.x + 0.05;
+			player.rotationSpeed = 5;
+		}
+	}
 		if (player.y >= 678) {
 			lavaDeath();
 			screen = 3
