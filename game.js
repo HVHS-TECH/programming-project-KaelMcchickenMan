@@ -46,6 +46,7 @@ function startGame() {
 		backgroundLava = new Sprite(250, 725, 500, 100, 'n');
 		backgroundLava.color = 'rgb(158, 53, 5)'
 		backgroundLava.stroke = 'rgb(175, 0, 0)';
+		backgroundLava.opacity = 50;
 
 		//spawn the player
 		player = new Sprite(250, 375, 25);
