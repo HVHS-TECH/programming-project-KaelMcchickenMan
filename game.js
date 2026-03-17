@@ -368,7 +368,7 @@ function draw() {
 		player.rotationSpeed = player.rotationSpeed / 1.05;
 
 		// player movement
-		if (backgroundState == 1 || backgroundState == 2 || backgroundState == 3 || backgroundState == 4 || backgroundState == 5 || backgroundState == 6 || backgroundState == 7 || backgroundState == 8 ) {
+		if (backgroundState == 1 || backgroundState == 2 || backgroundState == 3 || backgroundState == 4 || backgroundState == 5 || backgroundState == 6 || backgroundState == 7) {
 		if (kb.pressing('left')) {
 			player.vel.x = -3;
 			player.rotationSpeed = -5;
