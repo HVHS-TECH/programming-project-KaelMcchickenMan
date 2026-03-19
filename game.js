@@ -24,7 +24,7 @@ function setup() {
 	cnv = new Canvas(500, 750);
 	wallGroup = new Group();
 	coinGroup = new Group();
-
+	mapWallGroup = new Group();
 	// Starts the game
 	startGame();
 }
@@ -42,6 +42,11 @@ function startGame() {
 		// remove the sprites from the menu
 		startButton.remove();
 
+		// spawn the side walls
+		leftSideWall = new Sprite(0, 375, 1, 1000, 'k');
+		mapWallGroup.add(leftSideWall);
+		rightSideWall = new Sprite(500, 375, 1, 1000, 'k');
+		mapWallGroup.add(rightSideWall);
 		// spawn in the lava in the background
 		backgroundLava = new Sprite(250, 725, 500, 100, 'n');
 		backgroundLava.color = 'rgb(158, 53, 5)'
@@ -344,8 +349,40 @@ function draw() {
 			backgroundState = 7
 		} else if (frameCount == 3060) {
 			backgroundState = 8
+		} else if (frameCount == 3170) {
+			wallGroupVelocity = 2
+			rightBlockage();
+		} else if (frameCount == 3300) {
+			leftBlockage();
+		} else if (frameCount == 3450) {
+			rightChunk();
+		} else if (frameCount == 3600) {
+			rightBlockage();
+		} else if (frameCount == 3750) {
+			leftSideWave();
+		} else if (frameCount == 4000) {
+			rightSideWave();
+		} else if (frameCount == 4175) {
+			leftBlockage();
+		} else if (frameCount == 4300) {
+			rightBlockage();
+		} else if (frameCount == 4350) {
+			wallGroupVelocity = 1
+			largeSector1();
+		} else if (frameCount == 5550) {
+			wallGroupVelocity = 3
+			leftBlockage();
+		} else if (frameCount == 5720) {
+			wallGroupVelocity = 5
+			rightBlockage();
+
+		} else if (frameCount == 5500) {
+			backgroundState = 1
+			frameCount = 1
 		}
 	}
+
+
 	//frameCount = 0;
 	//	wallGroupVelocity = wallGroupVelocity / 2;
 	// next line does nothing but sets up for like 242F
@@ -357,37 +394,39 @@ function draw() {
 
 		// once screen has changed to the gameplay screen start doing the gameplay stuff
 	} else if (screen == 2) {
-
+		if (player.colliding(mapWallGroup)) {
+			player.y = player.y + 3
+		}
 		// smooth velocity stuff
 		if (backgroundState == 1) {
-		player.vel.x = player.vel.x / 1.05;
-		player.vel.y = player.vel.y / 1.05;
+			player.vel.x = player.vel.x / 1.05;
+			player.vel.y = player.vel.y / 1.05;
 		} else if (backgroundState == 8) {
-		player.vel.x = player.vel.x / 1.01;
-		player.vel.y = player.vel.y / 1.01;
+			player.vel.x = player.vel.x / 1.01;
+			player.vel.y = player.vel.y / 1.01;
 		}
 		player.rotationSpeed = player.rotationSpeed / 1.05;
 
 		// player movement
 		if (backgroundState == 1 || backgroundState == 2 || backgroundState == 3 || backgroundState == 4 || backgroundState == 5 || backgroundState == 6 || backgroundState == 7) {
-		if (kb.pressing('left')) {
-			player.vel.x = -3;
-			player.rotationSpeed = -5;
+			if (kb.pressing('left')) {
+				player.vel.x = -3;
+				player.rotationSpeed = -5;
+			}
+			if (kb.pressing('right')) {
+				player.vel.x = 3;
+				player.rotationSpeed = 5;
+			}
+		} else if (backgroundState == 8) {
+			if (kb.pressing('left')) {
+				player.vel.x = player.vel.x + -0.05;
+				player.rotationSpeed = -5;
+			}
+			if (kb.pressing('right')) {
+				player.vel.x = player.vel.x + 0.05;
+				player.rotationSpeed = 5;
+			}
 		}
-		if (kb.pressing('right')) {
-			player.vel.x = 3;
-			player.rotationSpeed = 5;
-		}
-	} else if (backgroundState == 8) {
-		if (kb.pressing('left')) {
-			player.vel.x = player.vel.x + -0.05;
-			player.rotationSpeed = -5;
-		}
-		if (kb.pressing('right')) {
-			player.vel.x = player.vel.x + 0.05;
-			player.rotationSpeed = 5;
-		}
-	}
 		if (player.y >= 678) {
 			lavaDeath();
 			screen = 3
