@@ -18,6 +18,10 @@ let coinRandomX = 1;
 let backgroundLavaUpAndDown = 1;
 let coinSideToSide = 1;
 let backgroundState = 1;
+let gameplayState = 1;
+let iceText = 0;
+let savedFrameCount = 0;
+let timer = 0;
 //SETUP
 function setup() {
 	console.log("setup: ");
@@ -251,15 +255,26 @@ function deleteCoin(_ssss, _player) {
 // the for statement and function that spawns the coins
 async function coinSpawning() {
 	console.log('spawning coins');
-	for (let i = 0; i < 50; i++) {
+	for (let i = 0; i < 25; i++) {
 		spawnCoin();
 		await sleep(2000); // Wait for 2 seconds before the next coin
 	}
 }
-
+async function coldCoinSpawning() {
+	console.log('spawning coins');
+	for (let i = 0; i < 50; i++) {
+		spawnCoin();
+		await sleep(500); // Wait for 0.5 seconds before the next coin
+	}
+}
 /*******************************************************/
+
 function draw() {
 	//console.log("draw:");
+
+	if (frameCount == savedFrameCount + 60) {
+		timer = timer + 1;
+	}
 	//console.log(frameCount);
 	if (backgroundState == 1) {
 		background('rgb(153, 0, 0)');
@@ -309,9 +324,12 @@ function draw() {
 		//spawning the gameplay using frame counting
 		if (frameCount == 100) {
 			backgroundState = 1
+			gameplayState = 1
+			iceText = 0
 			leftBlockage();
 		} else if (frameCount == 300) {
 			rightBlockage();
+			waveLargeFast();
 		} else if (frameCount == 500) {
 			leftBlockage();
 		} else if (frameCount == 750) {
@@ -347,13 +365,17 @@ function draw() {
 			backgroundState = 6
 		} else if (frameCount == 3050) {
 			backgroundState = 7
+			iceText = 1
+			coldCoinSpawning();
 		} else if (frameCount == 3060) {
 			backgroundState = 8
+			gameplayState = 2
 		} else if (frameCount == 3170) {
 			wallGroupVelocity = 2
 			rightBlockage();
 		} else if (frameCount == 3300) {
 			leftBlockage();
+			iceText = 0
 		} else if (frameCount == 3450) {
 			rightChunk();
 		} else if (frameCount == 3600) {
@@ -376,9 +398,14 @@ function draw() {
 			wallGroupVelocity = 5
 			rightBlockage();
 
-		} else if (frameCount == 5500) {
+		} else if (frameCount == 5850) {
+			wallGroupVelocity = 2
 			backgroundState = 1
+			gameplayState = 1
 			frameCount = 1
+			if (player.y >= 400) {
+			player.y = player.y - 50
+			}
 		}
 	}
 
@@ -397,18 +424,24 @@ function draw() {
 		if (player.colliding(mapWallGroup)) {
 			player.y = player.y + 3
 		}
+if (player.y <= 150) {
+			player.y = player.y + 3
+			}
+		if (iceText == 1) {
+			text("The floor is getting slippery!", 200, 250);
+		}
 		// smooth velocity stuff
-		if (backgroundState == 1) {
+		if (gameplayState == 1) {
 			player.vel.x = player.vel.x / 1.05;
 			player.vel.y = player.vel.y / 1.05;
-		} else if (backgroundState == 8) {
+		} else if (gameplayState == 2) {
 			player.vel.x = player.vel.x / 1.01;
-			player.vel.y = player.vel.y / 1.01;
+			player.vel.y = player.vel.y / 1.04;
 		}
 		player.rotationSpeed = player.rotationSpeed / 1.05;
 
 		// player movement
-		if (backgroundState == 1 || backgroundState == 2 || backgroundState == 3 || backgroundState == 4 || backgroundState == 5 || backgroundState == 6 || backgroundState == 7) {
+		if (gameplayState == 1) {
 			if (kb.pressing('left')) {
 				player.vel.x = -3;
 				player.rotationSpeed = -5;
@@ -417,7 +450,7 @@ function draw() {
 				player.vel.x = 3;
 				player.rotationSpeed = 5;
 			}
-		} else if (backgroundState == 8) {
+		} else if (gameplayState == 2) {
 			if (kb.pressing('left')) {
 				player.vel.x = player.vel.x + -0.05;
 				player.rotationSpeed = -5;
@@ -451,6 +484,8 @@ function draw() {
 		console.log("dead");
 		textSize(50);
 		text("YOU DIED", 50, 350);
+		text("Score = " + (score), 50, 400);
+		text("Time = " + (timer), 50, 450);
 	}
 
 	// give me money
