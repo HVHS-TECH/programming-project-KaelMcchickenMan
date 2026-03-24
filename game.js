@@ -8,6 +8,8 @@ function lavaDeath() {
 	wallGroup.remove();
 	text("YOU DIED", 250, 350);
 }
+const canvasWidth = 500;
+const canvasHeight = 750;
 // a bunch of global variables are set here
 let score = 0;
 let wallGroupVelocity = 1;
@@ -26,7 +28,7 @@ let showDebug = 0;
 //SETUP
 function setup() {
 	console.log("setup: ");
-	cnv = new Canvas(500, 750);
+	cnv = new Canvas(canvasWidth, canvasHeight);
 	wallGroup = new Group();
 	coinGroup = new Group();
 	mapWallGroup = new Group();
@@ -304,28 +306,28 @@ function draw() {
 
 	}
 	if (showDebug == 0) {
-	if (kb.pressed('z')) {
-		showDebug = 1
+		if (kb.pressed('z')) {
+			showDebug = 1
+		}
+	} else if (showDebug == 1) {
+		if (kb.pressed('z')) {
+			showDebug = 0
+		}
 	}
-} else if (showDebug == 1) {
-if (kb.pressed('z')) {
-		showDebug = 0
-	}
-}
 	if (frameCount == 50) {
 		coinSpawning();
 	}
 	// text (debug stuff)
 
 	if (showDebug == 1) {
-	text("Mouse X = " + round(mouse.x), 5, 15);
-	text("Mouse Y = " + round(mouse.y), 5, 35);
-	text("WallVelocity = " + (wallGroupVelocity), 5, 55);
-	text("Score = " + (score), 5, 75);
-	text("Frame = " + (frameCount), 5, 95);
-	text("Time = " + (timer), 5, 115);
-	// the variable to randomize the coins positions when spawning
-	coinRandomX = Math.random() * (490 - 10) + 10;
+		text("Mouse X = " + round(mouse.x), 5, 15);
+		text("Mouse Y = " + round(mouse.y), 5, 35);
+		text("WallVelocity = " + (wallGroupVelocity), 5, 55);
+		text("Score = " + (score), 5, 75);
+		text("Frame = " + (frameCount), 5, 95);
+		text("Time = " + (timer), 5, 115);
+		// the variable to randomize the coins positions when spawning
+		coinRandomX = Math.random() * (490 - 10) + 10;
 	}
 
 	if (screen == 2) {
@@ -407,7 +409,7 @@ if (kb.pressed('z')) {
 			rightBlockage();
 
 		} else if (frameCount == 5850) {
-			wallGroupVelocity = 2 + timer * 0.1 
+			wallGroupVelocity = 2 + timer * 0.1
 			backgroundState = 1
 			gameplayState = 1
 			frameCount = 1
@@ -496,13 +498,15 @@ if (kb.pressed('z')) {
 		// you screen will turn to screen 3 if you die and this will happen
 	} else if (screen == 3) {
 		console.log("dead");
+		textSize(50);
+		text("YOU DIED", 50, 350);
+		textSize(25);
+		text("Score = " + (score), 50, 400);
+		textSize(25);
+		text("Time = " + (timer), 50, 450);
+		textSize(25);
 
-		deadText = text("YOU DIED", 50, 350);
-		scoreText = text("Score = " + (score), 50, 400);
-		timerText = text("Time = " + (timer), 50, 450);
-		deadText = textSize(50);
-		scoreText = textSize(25);
-		timerText = textSize(25);
+		
 
 	}
 
