@@ -22,6 +22,7 @@ let gameplayState = 1;
 let iceText = 0;
 let savedFrameCount = 0;
 let timer = 0;
+let showDebug = 0;
 //SETUP
 function setup() {
 	console.log("setup: ");
@@ -272,9 +273,7 @@ async function coldCoinSpawning() {
 function draw() {
 	//console.log("draw:");
 
-	if (frameCount == savedFrameCount + 60) {
-		timer = timer + 1;
-	}
+
 	//console.log(frameCount);
 	if (backgroundState == 1) {
 		background('rgb(153, 0, 0)');
@@ -309,15 +308,17 @@ function draw() {
 		coinSpawning();
 	}
 	// text (debug stuff)
+
+	if (showDebug == 1) {
 	text("Mouse X = " + round(mouse.x), 5, 15);
 	text("Mouse Y = " + round(mouse.y), 5, 35);
 	text("WallVelocity = " + (wallGroupVelocity), 5, 55);
 	text("Score = " + (score), 5, 75);
 	text("Frame = " + (frameCount), 5, 95);
-
+	text("Time = " + (timer), 5, 115);
 	// the variable to randomize the coins positions when spawning
 	coinRandomX = Math.random() * (490 - 10) + 10;
-
+	}
 
 	if (screen == 2) {
 
@@ -329,7 +330,6 @@ function draw() {
 			leftBlockage();
 		} else if (frameCount == 300) {
 			rightBlockage();
-			waveLargeFast();
 		} else if (frameCount == 500) {
 			leftBlockage();
 		} else if (frameCount == 750) {
@@ -399,12 +399,12 @@ function draw() {
 			rightBlockage();
 
 		} else if (frameCount == 5850) {
-			wallGroupVelocity = 2
+			wallGroupVelocity = 2 + timer * 0.1 
 			backgroundState = 1
 			gameplayState = 1
 			frameCount = 1
 			if (player.y >= 400) {
-			player.y = player.y - 50
+				player.y = player.y - 50
 			}
 		}
 	}
@@ -424,9 +424,13 @@ function draw() {
 		if (player.colliding(mapWallGroup)) {
 			player.y = player.y + 3
 		}
-if (player.y <= 150) {
+		if (frameCount == savedFrameCount + 60) {
+			timer = timer + 1;
+			savedFrameCount = frameCount;
+		}
+		if (player.y <= 150) {
 			player.y = player.y + 3
-			}
+		}
 		if (iceText == 1) {
 			text("The floor is getting slippery!", 200, 250);
 		}
@@ -463,6 +467,8 @@ if (player.y <= 150) {
 		if (player.y >= 678) {
 			lavaDeath();
 			screen = 3
+			score = score + timer * 0.25
+			score = Math.round(score);
 		}
 
 		// a bunch of variables for visual movement
@@ -482,10 +488,14 @@ if (player.y <= 150) {
 		// you screen will turn to screen 3 if you die and this will happen
 	} else if (screen == 3) {
 		console.log("dead");
-		textSize(50);
-		text("YOU DIED", 50, 350);
-		text("Score = " + (score), 50, 400);
-		text("Time = " + (timer), 50, 450);
+
+		deadText = text("YOU DIED", 50, 350);
+		scoreText = text("Score = " + (score), 50, 400);
+		timerText = text("Time = " + (timer), 50, 450);
+		deadText = textSize(50);
+		scoreText = textSize(25);
+		timerText = textSize(25);
+
 	}
 
 	// give me money
