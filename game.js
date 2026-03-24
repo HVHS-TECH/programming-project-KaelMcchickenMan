@@ -303,7 +303,15 @@ function draw() {
 		startGame();
 
 	}
-
+	if (showDebug == 0) {
+	if (kb.pressed('z')) {
+		showDebug = 1
+	}
+} else if (showDebug == 1) {
+if (kb.pressed('z')) {
+		showDebug = 0
+	}
+}
 	if (frameCount == 50) {
 		coinSpawning();
 	}
