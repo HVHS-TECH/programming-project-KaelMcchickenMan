@@ -477,8 +477,8 @@ function draw() {
 		if (player.y >= 678) {
 			lavaDeath();
 			screen = 3
-			score = score + timer * 0.25
-			score = Math.round(score);
+			finalScore = score + timer * 0.25
+			finalScore = Math.round(finalScore);
 		}
 
 		// a bunch of variables for visual movement
@@ -501,7 +501,7 @@ function draw() {
 		textSize(50);
 		text("YOU DIED", 50, 350);
 		textSize(25);
-		text("Score = " + (score), 50, 400);
+		text("Score = " + (finalScore), 50, 400);
 		textSize(25);
 		text("Time = " + (timer), 50, 450);
 		textSize(25);
