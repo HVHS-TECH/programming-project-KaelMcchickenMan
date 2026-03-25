@@ -8,8 +8,11 @@ function lavaDeath() {
 	wallGroup.remove();
 	text("YOU DIED", 250, 350);
 }
+
+//constant variables (do not change)
 const canvasWidth = 500;
 const canvasHeight = 750;
+
 // a bunch of global variables are set here
 let score = 0;
 let wallGroupVelocity = 1;
@@ -25,6 +28,7 @@ let iceText = 0;
 let savedFrameCount = 0;
 let timer = 0;
 let showDebug = 0;
+
 //SETUP
 function setup() {
 	console.log("setup: ");
@@ -72,11 +76,10 @@ function startGame() {
 		lava.color = 'rgb(255, 135, 79)'
 		lava.stroke = 'rgb(255, 0, 0)';
 	}
-
-
 }
 
 
+//gameplay spawning for next 150 odd lines
 function leftBlockage() {
 	if (screen == 2) {
 		console.log("leftBlockage");
@@ -85,9 +88,7 @@ function leftBlockage() {
 		wall.vel.y = wallGroupVelocity;
 		wallGroup.add(wall);
 		wallGroupVelocity = wallGroupVelocity + wallGroupVelocity * 0.2
-
 	}
-
 }
 
 function rightBlockage() {
@@ -263,6 +264,7 @@ async function coinSpawning() {
 		await sleep(2000); // Wait for 2 seconds before the next coin
 	}
 }
+//the for statement and function that spawns the coins during the ice level (more frequent coin spawning)
 async function coldCoinSpawning() {
 	console.log('spawning coins');
 	for (let i = 0; i < 50; i++) {
@@ -274,8 +276,6 @@ async function coldCoinSpawning() {
 
 function draw() {
 	//console.log("draw:");
-
-
 	//console.log(frameCount);
 	if (backgroundState == 1) {
 		background('rgb(153, 0, 0)');
@@ -303,8 +303,8 @@ function draw() {
 		console.log('game started');
 		console.log(inMenu);
 		startGame();
-
 	}
+//if statement to detect wether or not the debug variables should be displayed
 	if (showDebug == 0) {
 		if (kb.pressed('z')) {
 			showDebug = 1
@@ -314,11 +314,13 @@ function draw() {
 			showDebug = 0
 		}
 	}
+
+	//coins first spawn
 	if (frameCount == 50) {
 		coinSpawning();
 	}
-	// text (debug stuff)
 
+	// text (debug stuff)
 	if (showDebug == 1) {
 		text("Mouse X = " + round(mouse.x), 5, 15);
 		text("Mouse Y = " + round(mouse.y), 5, 35);
@@ -329,9 +331,11 @@ function draw() {
 		// the variable to randomize the coins positions when spawning
 		
 	}
-coinRandomX = Math.random() * (490 - 10) + 10;
-	if (screen == 2) {
 
+	//coin random spawn position variable
+coinRandomX = Math.random() * (490 - 10) + 10;
+
+	if (screen == 2) {
 		//spawning the gameplay using frame counting
 		if (frameCount == 100) {
 			backgroundState = 1
@@ -409,11 +413,12 @@ coinRandomX = Math.random() * (490 - 10) + 10;
 			rightBlockage();
 
 		} else if (frameCount == 5850) {
-			console.log(timer)
-			wallGroupVelocity = 1 + timer * 0.1
+			console.log(1 + timer / 50)
+			wallGroupVelocity = 1 + timer / 50
 			backgroundState = 1
 			gameplayState = 1
 			frameCount = 1
+			savedFrameCount = 1
 			if (player.y >= 400) {
 				player.y = player.y - 50
 			}
@@ -425,16 +430,16 @@ coinRandomX = Math.random() * (490 - 10) + 10;
 	//	wallGroupVelocity = wallGroupVelocity / 2;
 	// next line does nothing but sets up for like 242F
 	if (screen == 1) {
-
 		text("Don't Burn", 200, 250);
 		text('Controls: Left/Right Arrow Keys', 200, 350);
 		frameCount = 0
-
 		// once screen has changed to the gameplay screen start doing the gameplay stuff
+
 	} else if (screen == 2) {
 		if (player.colliding(mapWallGroup)) {
 			player.y = player.y + 3
 		}
+
 		if (frameCount == savedFrameCount + 60) {
 			timer = timer + 1;
 			savedFrameCount = frameCount;
@@ -445,6 +450,7 @@ coinRandomX = Math.random() * (490 - 10) + 10;
 		if (iceText == 1) {
 			text("The floor is getting slippery!", 200, 250);
 		}
+		
 		// smooth velocity stuff
 		if (gameplayState == 1) {
 			player.vel.x = player.vel.x / 1.05;
@@ -489,13 +495,13 @@ coinRandomX = Math.random() * (490 - 10) + 10;
 		lava.y = 720 + 50 * Math.cos(lavaUpAndDown) * 0.3
 		backgroundLava.y = 650 + 50 * Math.cos(backgroundLavaUpAndDown) * 0.2
 
-
-		// despawn coins
+		// despawn coins if they pass a certain depth limit
 		if (frameCount > 75) {
 			if (coin.pos.y >= 400) {
 				coin.remove()
 			}
 		}
+
 		// you screen will turn to screen 3 if you die and this will happen
 	} else if (screen == 3) {
 		console.log("dead");
@@ -511,7 +517,7 @@ coinRandomX = Math.random() * (490 - 10) + 10;
 
 	}
 
-	// give me money
+	// the code to detect if a player is colliding with a coin
 	if (screen == 2 && player.collided(coinGroup)) {
 		score = score + 1
 	}
