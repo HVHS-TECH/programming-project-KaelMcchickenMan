@@ -327,9 +327,9 @@ function draw() {
 		text("Frame = " + (frameCount), 5, 95);
 		text("Time = " + (timer), 5, 115);
 		// the variable to randomize the coins positions when spawning
-		coinRandomX = Math.random() * (490 - 10) + 10;
+		
 	}
-
+coinRandomX = Math.random() * (490 - 10) + 10;
 	if (screen == 2) {
 
 		//spawning the gameplay using frame counting
@@ -409,7 +409,8 @@ function draw() {
 			rightBlockage();
 
 		} else if (frameCount == 5850) {
-			wallGroupVelocity = 2 + timer * 0.1
+			console.log(timer)
+			wallGroupVelocity = 1 + timer * 0.1
 			backgroundState = 1
 			gameplayState = 1
 			frameCount = 1
