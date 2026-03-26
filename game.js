@@ -44,14 +44,12 @@ function setup() {
 function startGame() {
 	// if you are on the menu screen spawn the menu sprites
 	if (screen == 1) {
-		startButton = new Sprite(250, 500, 250, 50);
-		startButton.color = 'rgb(131, 79, 255)'
+		
 
-		// once you have started the game (line 246) change the screen and start the game
+		// once you have started the game change the screen and start the game
 	} else if (screen == 2) {
 		console.log("game started fully ");
 		// remove the sprites from the menu
-		startButton.remove();
 
 		// spawn the side walls
 		leftSideWall = new Sprite(0, 375, 1, 1000, 'k');
@@ -241,12 +239,14 @@ function largeSector1() {
 }
 // the function to spawn a coin
 function spawnCoin() {
+	if (screen == 2) {
 	coin = new Sprite(coinRandomX, 0, 15, 'n');
 	coin.color = 'rgb(255, 189, 91)';
 	coin.stroke = 'rgb(255, 151, 14)';
 	coin.vel.y = 1.75;
 	coinGroup.add(coin);
 	coin.overlaps(player, deleteCoin);
+	}
 }
 
 // function to delete the coin
@@ -267,7 +267,7 @@ async function coinSpawning() {
 //the for statement and function that spawns the coins during the ice level (more frequent coin spawning)
 async function coldCoinSpawning() {
 	console.log('spawning coins');
-	for (let i = 0; i < 50; i++) {
+	for (let i = 0; i < 85; i++) {
 		spawnCoin();
 		await sleep(500); // Wait for 0.5 seconds before the next coin
 	}
@@ -413,8 +413,7 @@ coinRandomX = Math.random() * (490 - 10) + 10;
 			rightBlockage();
 
 		} else if (frameCount == 5850) {
-			console.log(1 + timer / 50)
-			wallGroupVelocity = 1 + timer / 50
+			wallGroupVelocity = 1 + timer / 100
 			backgroundState = 1
 			gameplayState = 1
 			frameCount = 1
@@ -430,8 +429,12 @@ coinRandomX = Math.random() * (490 - 10) + 10;
 	//	wallGroupVelocity = wallGroupVelocity / 2;
 	// next line does nothing but sets up for like 242F
 	if (screen == 1) {
-		text("Don't Burn", 200, 250);
-		text('Controls: Left/Right Arrow Keys', 200, 350);
+		textSize(50);
+		text("Don't Burn", 125, 250);
+		textSize(25);
+		text('Controls: Left/Right Arrow Keys', 80, 350);
+		textSize(25);
+		text('Space to start!', 170, 500);
 		frameCount = 0
 		// once screen has changed to the gameplay screen start doing the gameplay stuff
 
@@ -448,7 +451,7 @@ coinRandomX = Math.random() * (490 - 10) + 10;
 			player.y = player.y + 3
 		}
 		if (iceText == 1) {
-			text("The floor is getting slippery!", 200, 250);
+			text("The floor is getting slippery!", 100, 250);
 		}
 		
 		// smooth velocity stuff
