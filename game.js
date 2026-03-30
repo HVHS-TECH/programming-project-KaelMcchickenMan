@@ -490,7 +490,6 @@ coinRandomX = Math.random() * (490 - 10) + 10;
 			finalScore = score + timer * 0.25
 			finalScore = Math.round(finalScore);
 		}
-
 		// a bunch of variables for visual movement
 		lavaUpAndDown = lavaUpAndDown + 0.02
 		coinSideToSide = coinSideToSide + 0.02
@@ -504,7 +503,7 @@ coinRandomX = Math.random() * (490 - 10) + 10;
 				coin.remove()
 			}
 		}
-
+		
 		// you screen will turn to screen 3 if you die and this will happen
 	} else if (screen == 3) {
 		console.log("dead");
@@ -515,9 +514,6 @@ coinRandomX = Math.random() * (490 - 10) + 10;
 		textSize(25);
 		text("Time = " + (timer), 50, 450);
 		textSize(25);
-
-		
-
 	}
 
 	// the code to detect if a player is colliding with a coin
